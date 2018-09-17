@@ -6,12 +6,12 @@ public class RevenueTypeVO implements IValueObject<RevenueTypeVO> {
 	
 	private String description;
 
-	public RevenueTypeVO(String type) {
+	public RevenueTypeVO(final String type) {
 		this.description=type;
 	}
 
 	@Override
-	public boolean equals(Object other) {
+	public boolean equals(final Object other) {
 		if(other==null ||other.getClass()!=this.getClass()) return false;
 		return isTheSameOf((RevenueTypeVO)other);
 	}
@@ -22,9 +22,8 @@ public class RevenueTypeVO implements IValueObject<RevenueTypeVO> {
 	}
 	
 	@Override
-	public boolean isTheSameOf(RevenueTypeVO other) {
+	public boolean isTheSameOf(final RevenueTypeVO other) {
 		if(other==null) return false;
 		return this.hashCode()==other.hashCode();
 	}
-
 }

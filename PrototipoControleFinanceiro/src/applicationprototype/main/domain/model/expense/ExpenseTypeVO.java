@@ -12,14 +12,14 @@ public class ExpenseTypeVO implements IValueObject<ExpenseTypeVO>{
 		
 	}
 	
-	public ExpenseTypeVO(IValueObject<ExpenseClassificationVO> classification, String description) {
+	public ExpenseTypeVO(final IValueObject<ExpenseClassificationVO> classification,final String description) {
 		super();
 		this.classification = classification;
 		this.description = description;
 	}
 
 	@Override
-	public boolean equals(Object other) {
+	public boolean equals(final Object other) {
 		if(other==null ||other.getClass()!=this.getClass()) return false;
 		return isTheSameOf((ExpenseTypeVO)other);
 	}
@@ -30,7 +30,7 @@ public class ExpenseTypeVO implements IValueObject<ExpenseTypeVO>{
 	}
 	
 	@Override
-	public boolean isTheSameOf(ExpenseTypeVO other) {
+	public boolean isTheSameOf(final ExpenseTypeVO other) {
 		if(other==null) return false;
 		return this.hashCode()==other.hashCode() && this.classification.isTheSameOf((ExpenseClassificationVO) other.getClassification());
 	}
@@ -38,6 +38,4 @@ public class ExpenseTypeVO implements IValueObject<ExpenseTypeVO>{
 	public IValueObject<ExpenseClassificationVO> getClassification() {
 		return classification;
 	}
-	
-
 }

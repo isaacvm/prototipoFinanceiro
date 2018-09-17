@@ -2,14 +2,14 @@ package applicationprototype.main.domain.model.revenue;
 
 import java.util.Date;
 
-import applicationprototype.main.domain.shared.AbstractFinancialMovement;
+import applicationprototype.main.domain.shared.BaseFinancialMovement;
 import applicationprototype.main.domain.shared.IValueObject;
 
-public class Revenue extends AbstractFinancialMovement{
+public class Revenue extends BaseFinancialMovement<Revenue>{
 
 	private IValueObject<RevenueTypeVO> type;
 
-	public Revenue(Date date, IValueObject<RevenueTypeVO> type, Number value) {
+	public Revenue(Date date, IValueObject<RevenueTypeVO> type, double value) {
 		super(date,value);
 		this.setType(type);
 	}
@@ -22,9 +22,4 @@ public class Revenue extends AbstractFinancialMovement{
 		this.type = type;
 	}
 
-	@Override
-	public Object getById(Object key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

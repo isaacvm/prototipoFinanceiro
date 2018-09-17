@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 import applicationprototype.main.domain.shared.AbstractFinancialMovimentBuilder;
-import applicationprototype.main.domain.shared.Entity;
+import applicationprototype.main.domain.shared.IEntity;
 
 public class ExpenseBuilder extends AbstractFinancialMovimentBuilder{
 
@@ -14,24 +14,24 @@ public class ExpenseBuilder extends AbstractFinancialMovimentBuilder{
 	private String typeDescription;
 	private Expense expense;
 
-	public ExpenseBuilder(Date date,String type, Number value) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IOException {
+	public ExpenseBuilder(final Date date,final String type,final double value) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IOException {
 		super(date, type, value);
 		this.typeDescription = type;
 		this.expense=new Expense(date, value);
 	}
 	
 
-	public ExpenseBuilder addNotes(String notes) {
+	public ExpenseBuilder addNotes(final String notes) {
 		this.expense.setNotes(notes);
 		return this;
 	}
 	
-	public ExpenseBuilder addClassification(String classification) {
+	public ExpenseBuilder addClassification(final String classification) {
 		this.classification=classification;
 		return this;
 	}
 	
-	public Entity<Expense> build() {
+	public Expense build() {
 		this.expense.setClassification(new ExpenseClassificationVO(classification));
 		this.expense.setType(new ExpenseTypeVO(this.expense.getClassification(), this.type));
 		this.validator.validate();
@@ -50,7 +50,7 @@ public class ExpenseBuilder extends AbstractFinancialMovimentBuilder{
 		return date;
 	}
 
-	public Number getValue() {
+	public double getValue() {
 		return value;
 	}
 }

@@ -1,7 +1,10 @@
 package applicationprototype.main.domain.shared;
 
-import applicationprototype.main.domain.model.revenue.RevenueBuilder;
-
+/*
+ * MOTIVAÇÃO
+ * esta classe é responsável pela validação na criação das movimentações financeiras.
+ * Toda classe que herda desta faz a validação específica de cada entidade.
+ */
 public abstract class AbstractValidator{
 
 	protected final AbstractFinancialMovimentBuilder builder;
@@ -21,7 +24,7 @@ public abstract class AbstractValidator{
 	private final <T> void validateValue(final T value) throws IllegalArgumentException {
 		if (value == null) {
 			throw new IllegalArgumentException("O valor monetário é nulo");
-		} else if (((Number) value).doubleValue() <= 0) {
+		} else if (((Double) value).doubleValue() <= 0) {
 			throw new IllegalArgumentException("O valor monetário é menor ou igual a zero");
 		}
 	}

@@ -2,15 +2,12 @@ package applicationprototype.test.application.util;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import applicationprototype.main.application.util.DateHelper;

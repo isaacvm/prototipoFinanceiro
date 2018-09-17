@@ -8,18 +8,23 @@ import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
 
-import applicationprototype.main.domain.shared.factory.BuilderFactory;
-import applicationprototype.main.domain.shared.factory.ValidatorFactory;
-
+import applicationprototype.main.domain.factory.BuilderFactory;
+import applicationprototype.main.domain.factory.ValidatorFactory;
+/*
+ * MOTIVAÇÃO
+ * Esta classe usa o padrão Build para criar classes complexas. Neste protótipo as entidades
+ * foram criadas como classes complexas por terem atributos obrigatórios e não obrigatórios,
+ * objetos de valor associado, e uma validação na criação de cada instância.
+ */
 public abstract class AbstractFinancialMovimentBuilder {
 
 	protected Date date;
 	protected String notes;
 	protected String type;
-	protected Number value;
+	protected double value;
 	protected AbstractValidator validator;
 
-	public AbstractFinancialMovimentBuilder(Date date, String type, Number value)
+	public AbstractFinancialMovimentBuilder(final Date date,final String type,final double value)
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException, SecurityException, IOException {
 
@@ -32,44 +37,9 @@ public abstract class AbstractFinancialMovimentBuilder {
 
 	private void initValidation() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IOException {
-		AbstractFactory vf = new ValidatorFactory();
-		Properties validatorProperties = vf.getProperties();
-		AbstractFactory bf = new BuilderFactory();
-		Properties BuilderProperties = bf.getProperties();
-		if (!isPropertiesEquals(validatorProperties, BuilderProperties))
-			throw new ClassNotFoundException(
-					"Os arquivos de propriedades da fábrica de validators e builders são diferentes");
-		Set<Object> keys = validatorProperties.keySet();
-		Iterator<Object> i = keys.iterator();
-
-		String baseKey = this.getClass().getSimpleName().substring(0, this.getClass().getSimpleName().length()-7);
-		while (i.hasNext()) {
-			String k = (String) i.next();
-			if(k.equals(baseKey)) {
-				Constructor create = vf.create(k);
-				validator = (AbstractValidator) create.newInstance(this);
-				break;
-			}
-		}			
-//			addBuilderHandler(vc);
-		
-		//this.first.handleRequest(this);
-	}
-
-	private final boolean isPropertiesEquals(final Properties validatorProperties, final Properties builderProperties) {
-		if (validatorProperties == null || builderProperties == null)
-			return false;
-		if (validatorProperties.size() != builderProperties.size())
-			return false;
-		final Iterator<Object> vKeySet = validatorProperties.keySet().iterator();
-		final Set<Object> bKeySet = builderProperties.keySet();
-		while (vKeySet.hasNext()) {
-			if (!bKeySet.contains(vKeySet.next())) {
-				return false;
-			}
-		}
-		return true;
-
+		String base = this.getClass().getSimpleName().substring(0, this.getClass().getSimpleName().length()-7);
+		base = base.concat(".validator").toLowerCase();
+		validator = (AbstractValidator) CoreFactory.create(base).newInstance(this);
 	}
 
 	protected Date getDate() {
@@ -84,10 +54,10 @@ public abstract class AbstractFinancialMovimentBuilder {
 		return type;
 	}
 
-	protected Number getValue() {
+	protected double getValue() {
 		return value;
 	}
 
-	public abstract Entity build();
+	public abstract IEntity build();
 
 }

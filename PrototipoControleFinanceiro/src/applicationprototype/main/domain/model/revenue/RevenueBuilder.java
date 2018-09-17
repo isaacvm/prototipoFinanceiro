@@ -5,26 +5,25 @@ import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import applicationprototype.main.domain.shared.AbstractFinancialMovement;
+import applicationprototype.main.domain.shared.BaseFinancialMovement;
 import applicationprototype.main.domain.shared.AbstractFinancialMovimentBuilder;
 import applicationprototype.main.domain.shared.IValueObject;
 
-public class RevenueBuilder extends AbstractFinancialMovimentBuilder{
+public final class RevenueBuilder extends AbstractFinancialMovimentBuilder{
 	
 	private Revenue revenue;
 	
-	protected AbstractFinancialMovement getEntity() {
+	protected BaseFinancialMovement<Revenue> getEntity() {
 		return revenue;
 	}
 
-	public RevenueBuilder(Date date, String type, Number value) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IOException {
+	public RevenueBuilder(final Date date,final String type,final double value) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IOException {
 		super(date, type, value);
 		new RevenueValidator(this);
 		IValueObject<RevenueTypeVO> revenueType = new RevenueTypeVO(this.type);
 		this.revenue = new Revenue(date, revenueType, value);
 	}
 
-	
 	public String getNotes() {
 		return notes;
 	}
@@ -37,7 +36,7 @@ public class RevenueBuilder extends AbstractFinancialMovimentBuilder{
 		return date;
 	}
 
-	public Number getValue() {
+	public double getValue() {
 		return value;
 	}
 

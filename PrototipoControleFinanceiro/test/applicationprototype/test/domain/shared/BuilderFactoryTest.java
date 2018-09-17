@@ -10,10 +10,10 @@ import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
+import applicationprototype.main.domain.factory.BuilderFactory;
 import applicationprototype.main.domain.model.revenue.RevenueBuilder;
-import applicationprototype.main.domain.shared.AbstractFactory;
+import applicationprototype.main.domain.shared.CoreFactory;
 import applicationprototype.main.domain.shared.AbstractFinancialMovimentBuilder;
-import applicationprototype.main.domain.shared.factory.BuilderFactory;
 
 public class BuilderFactoryTest {
 
@@ -21,7 +21,7 @@ public class BuilderFactoryTest {
 	public void createWithSuccess() throws IOException, InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		try {
-			AbstractFactory factory = new BuilderFactory();
+			CoreFactory factory = new BuilderFactory();
 			Constructor toFactory = factory.create("Revenue");
 			RevenueBuilder target = (RevenueBuilder) toFactory.newInstance(GregorianCalendar.getInstance().getTime(),
 					"lala", new BigDecimal(1));

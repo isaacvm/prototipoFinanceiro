@@ -6,5 +6,6 @@
  *
  */
 module prototipoControleFinanceiro {
-	requires jdk.compiler;
+	requires java.logging;
+	requires java.desktop;
 }
